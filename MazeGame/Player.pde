@@ -4,15 +4,16 @@ class Player
   int xpos = 35;
   int ypos = 35;
   PFont font; 
-  float targetX, targetY;
+  int targetX, targetY;
   PImage player;
+  PImage bckgrnd;
   
   
   boolean gameOver = false;
   
   void StartGame()
   {
-    player = loadImage("sloth2.png");
+    player = loadImage("idleboi.png");
     targetX = 25;
     targetY = 700;
     image(player,xpos,ypos,size,size);
@@ -27,22 +28,30 @@ class Player
     if(mouseX >= xpos && mouseX <= xpos+size && 
       mouseY >= ypos && mouseY <= ypos+size)
     {
-      if(xpos >= targetX && ypos >= targetY){
+      if(xpos >= targetX && xpos < 100 && ypos >= targetY && ypos < 775){
             gameOver = true;
       } else {
         
         if(xpos + size >= width || xpos <= 0 || ypos + size >= height || ypos <= 0){
           xpos = 35;
-          ypos = 35;
-          background(255);
+          ypos = 35;          
+          background(bckgrnd);
           image(player,xpos,ypos,size,size);
         } else {
           xpos = mouseX - size/2;
           ypos = mouseY - size/2;
-          background(255);
+          background(bckgrnd);
           image(player,xpos,ypos,size,size);
         }
       }
     }
+  }
+  
+  void resetPosition()
+  {   
+    background(bckgrnd);
+    xpos = 35;
+    ypos = 35;
+    image(player, xpos, ypos, size, size);
   }
 }

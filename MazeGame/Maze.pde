@@ -2,20 +2,21 @@ class Maze
 {
   
   PGraphics maze;
+  PFont font;
   
   public Maze() {
     maze = createGraphics(800, 800);
   }
-  /*
+
   void createCourse1()
   {
     //Obstacles
     maze.beginDraw();
-    maze.fill(255,255,255);
+    maze.fill(0,0,0,0);
     maze.stroke(0);
     maze.strokeWeight(1);
-    maze.fill(255,255,255);
-    maze.stroke(0,0,0);
+    maze.fill(0,0,0,0);
+    maze.stroke(0);
     maze.strokeWeight(10);
     maze.rect(-10,120,500,100);//biggest rect
     maze.rect(150,-10,50,60);
@@ -45,32 +46,35 @@ class Maze
     
     //Special Areas
     maze.fill(255,0,0);
+    maze.stroke(255,0,0);
     maze.rect(25,700,75,75); //win area
-    maze.fill(0,0,255);
-    maze.rect(25,25,75,75); //start area
+    //maze.fill(0,0,255);
+    //maze.rect(25,25,75,75); //start area
     
     //Messages
     maze.fill(255,0,0);
-    maze.text("RED SQUARE =",250,160);
-    maze.fill(0,0,0);
-    maze.text("Winner Winner Chicken Dinner",250,180);
-    maze.fill(124,252,0);
-    
+    maze.textFont(font);
+    maze.textSize(30);
+    maze.text("RED SQUARE =",200,160);
+    maze.fill(0);
+    maze.textSize(25);
+    maze.text("Winner Winner Chicken Dinner",200,180);
+    maze.fill(124,252,0);    
     maze.endDraw();
   }
   
   void show() {
     image(maze, 0, 0); 
   }
-  
+  /*
   void experiment() {
      maze.loadPixels();
      print(maze.pixels[0]);
      
   }
-  
-  void hasCollided(int x, int y, int w, int h) {
-     
+ 
+  void hasCollided(int x, int y, int w, int h) {    
+    
+    }
+  */ 
   }
-  */
-}
