@@ -8,7 +8,7 @@ final int imgY = 340;
 final int imgW = 200;
 final int imgH = 100;
 
-boolean black = false;
+boolean collision;
 
 PImage start;
 PImage bckgrnd;
@@ -34,6 +34,7 @@ void setup()
   //p1.font = loadFont("LetterOMatic-30.vlw");
   frameRate(60);
   m.font = loadFont("HandMeDownS-BRK--48.vlw");
+  collision = false;
 }
 
 void draw()
@@ -56,7 +57,7 @@ void draw()
          m.createCourse1(); //<>//
          m.show();
          checkForCollisions(p1.player, p1.size, p1.size);
-         if(black == true)
+         if(collision == true)
          {
             p1.resetPosition();
          }
@@ -91,7 +92,7 @@ void checkForCollisions(PImage img, int x, int y)
   {        
     if(img.pixels[i] == c1)
     {
-      black = true;
+      collision = true;
     } 
   }  
   
@@ -111,5 +112,5 @@ void checkForCollisions(PImage img, int x, int y)
    }
   }
   */
-    black = false;
+    collision = false;
 }
