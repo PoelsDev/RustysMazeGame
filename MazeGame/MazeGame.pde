@@ -37,10 +37,9 @@ void setup()
   //Extra's
   //p1.font = loadFont("LetterOMatic-30.vlw");
   frameRate(60);
-  m.font = loadFont("HandMeDownS-BRK--48.vlw");
   collision = false;
   
-   m = new Maze();
+   m = new Maze();   
 }
 
 void draw()

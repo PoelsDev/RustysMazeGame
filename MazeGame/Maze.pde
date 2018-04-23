@@ -7,6 +7,7 @@ class Maze
   
   public Maze() {
     maze = createGraphics(800, mazewidth);
+    font = loadFont("HandMeDownS-BRK--48.vlw");
     createCourse1();
     
     loadPixels();
@@ -81,6 +82,10 @@ class Maze
    private boolean hasPixelOn(int x, int y) {
      // als zwart (of niet wit) dan return true
      // anders return false
+     if(pixels[x + y * mazewidth] == color(0))
+     {
+       return true;
+     }
      
      //pixels[x + y * mazewidth].gray
      return false;
@@ -98,3 +103,4 @@ class Maze
     
     return false;  
   }
+}
