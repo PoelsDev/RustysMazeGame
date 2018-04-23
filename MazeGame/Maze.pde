@@ -3,12 +3,16 @@ class Maze
   
   PGraphics maze;
   PFont font;
+  int mazewidth = 800;
   
   public Maze() {
-    maze = createGraphics(800, 800);
+    maze = createGraphics(800, mazewidth);
+    createCourse1();
+    
+    loadPixels();
   }
 
-  void createCourse1()
+  private void createCourse1()
   {
     //Obstacles
     maze.beginDraw();
@@ -72,9 +76,25 @@ class Maze
      print(maze.pixels[0]);
      
   }
+ */
  
-  void hasCollided(int x, int y, int w, int h) {    
+   private boolean hasPixelOn(int x, int y) {
+     // als zwart (of niet wit) dan return true
+     // anders return false
+     
+     //pixels[x + y * mazewidth].gray
+     return false;
+   }
+ 
+  boolean hasCollided(int x, int y, int w, int h) {
     
+    for(int i = x; i < x + w; i++) {
+      for(int j = y; j < y + h; j++) {
+        if( hasPixelOn(i, j) ) {
+          return true;
+        }
+      }
     }
-  */ 
+    
+    return false;  
   }

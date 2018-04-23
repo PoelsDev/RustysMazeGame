@@ -11,6 +11,8 @@ final int imgH = 100;
 boolean collision;
 
 PImage start;
+PImage reload;
+PImage exit;
 PImage bckgrnd;
 
 void setup()
@@ -19,12 +21,14 @@ void setup()
   size(800,800);
   
   //Maze
-  m = new Maze();
+ 
   
   //background
   bckgrnd = loadImage("background0.png");
   background(bckgrnd);
   p1.bckgrnd = loadImage("background0.png");
+  reload = loadImage("reset.png");
+  exit = loadImage("exitbutton.png");
   
   //Start
   start = loadImage("start.png");
@@ -35,6 +39,8 @@ void setup()
   frameRate(60);
   m.font = loadFont("HandMeDownS-BRK--48.vlw");
   collision = false;
+  
+   m = new Maze();
 }
 
 void draw()
@@ -53,11 +59,9 @@ void draw()
     case Playing:
 
       if(mousePressed == true){
-         p1.mouseDragged();
-         m.createCourse1(); //<>//
+         p1.mouseDragged(); //<>//
          m.show();
-         checkForCollisions(p1.player, p1.size, p1.size);
-         if(collision == true)
+         if(m.hasCollided(p1.xpos, p1.ypos, p1.size, p1.size))
          {
             p1.resetPosition();
          }
@@ -68,18 +72,33 @@ void draw()
       break;
     
     case GameOver:
-      showWinScreen();  
+      showWinScreen();
       break;
   }
 }
 
 void showWinScreen() {
-  PImage winner;
-  
+  PImage winner;  
   clear();
   background(bckgrnd);
-  winner = loadImage("winner.jpg");
-  image(winner,0,0,800,800); 
+  winner = loadImage("winnerpixel.png");
+  image(winner,0,200,800,500);
+  image(reload,14,10,95,48);
+  image(exit,0,70,128,67);
+  if(mousePressed == true && mouseX <= 100 && mouseY <= 50)       
+      {
+          background(bckgrnd);
+          gameMode = GameMode.Playing;
+          p1.xpos = 35;
+          p1.ypos = 35;
+          p1.gameOver = false;
+          m.createCourse1();
+          m.show();
+          p1.StartGame();
+      } else if(mousePressed == true && mouseX <= 128 && mouseY >= 70 && mouseY <= 140)
+      {
+        exit();
+      }
 }
 
 void checkForCollisions(PImage img, int x, int y)
@@ -89,11 +108,13 @@ void checkForCollisions(PImage img, int x, int y)
   m.maze.loadPixels();
   img.loadPixels();
   for(int i = 0; i < img.pixels.length; i++)
-  {        
-    if(img.pixels[i] == c1)
-    {
-      collision = true;
-    } 
+  {
+    for(int j = 0; j < m.maze.pixels.length; j++) {
+      if(m.maze.pixels[j] == img.pixels[i])
+      {
+        collision = true;
+      }  
+    }
   }  
   
   /*
