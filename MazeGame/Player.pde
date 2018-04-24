@@ -1,57 +1,57 @@
 class Player
 {
+  //Variables
   int size = 50;
   int xpos = 35;
   int ypos = 35;
+  
+  //P-objects
   PFont font; 
-  int targetX, targetY;
   PImage player;
-  PImage bckgrnd;
   
-  
-  boolean gameOver = false;
-  
-  void StartGame()
-  {
+  //Summon player
+  Player() {
+    //Load image
     player = loadImage("idleboi.png");
-    targetX = 25;
-    targetY = 700;
-    image(player,xpos,ypos,size,size);
+  }      
+  
+  //Draw player
+  void draw() {
+    image(player,xpos,ypos,size,size); 
   }
   
-  boolean isGameOver() {
-    return gameOver;
-  }
-  
-  void mouseDragged()
+  //Update player
+  void drawWhileDragging()
   {
     if(mouseX >= xpos && mouseX <= xpos+size && 
       mouseY >= ypos && mouseY <= ypos+size)
-    {
-      if(xpos >= targetX && xpos < 100 && ypos >= targetY && ypos < 775){
-            gameOver = true;
-      } else {
-        
-        if(xpos + size >= width || xpos <= 0 || ypos + size >= height || ypos <= 0){
-          xpos = 35;
-          ypos = 35;          
-          background(bckgrnd);
-          image(player,xpos,ypos,size,size);
+    {             
+        if(xpos + size >= width || xpos <= 2 || ypos + size >= height || ypos <= 2){
+          this.resetPosition();
+          this.draw();
         } else {
           xpos = mouseX - size/2;
           ypos = mouseY - size/2;
-          background(bckgrnd);
-          image(player,xpos,ypos,size,size);
-        }
-      }
+          this.draw();
+        }      
     }
   }
   
+  //Get current player position
+  CollideRectangle getCurrentPosition() {
+    CollideRectangle pos = new CollideRectangle();
+    pos.X = xpos;
+    pos.Y = ypos;
+    pos.Width = size;
+    pos.Height = size;
+    
+    return pos;
+  }
+  
+  //Reset position to starting position
   void resetPosition()
   {   
-    background(bckgrnd);
     xpos = 35;
     ypos = 35;
-    image(player, xpos, ypos, size, size);
   }
 }

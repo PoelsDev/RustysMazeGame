@@ -1,136 +1,105 @@
+//Objects
 GameMode gameMode = GameMode.StartScreen;
-Player p1 = new Player();
+Player p1;
 Maze m;
- 
 
+//Constants
 final int imgX = 300;
 final int imgY = 340;
 final int imgW = 200;
 final int imgH = 100;
 
-boolean collision;
+//Variables
+boolean gameOver;
 
+//Images
 PImage start;
 PImage reload;
 PImage exit;
 PImage bckgrnd;
+PImage winner;
 
 void setup()
 {
-  //Venster
+  //Settings
   size(800,800);
-  
-  //Maze
- 
-  
-  //background
+  frameRate(60);
+    
+  //Background
   bckgrnd = loadImage("background0.png");
   background(bckgrnd);
-  p1.bckgrnd = loadImage("background0.png");
+  
+  //Loading Images
   reload = loadImage("reset.png");
   exit = loadImage("exitbutton.png");
+  winner = loadImage("winnerpixel.png");
+  start = loadImage("start.png");  
   
-  //Start
-  start = loadImage("start.png");
-  image(start,imgX,imgY,imgW,imgH);
-  
-  //Extra's
-  //p1.font = loadFont("LetterOMatic-30.vlw");
-  frameRate(60);
-  collision = false;
-  
+   //Make Objects
    m = new Maze();   
+   p1 = new Player();
 }
 
 void draw()
 {
+  background(bckgrnd);
+  
   switch(gameMode) {
     case StartScreen:
+      image(start,imgX,imgY,imgW,imgH);
       if (mousePressed == true && mouseX >= imgX && mouseX <= imgX+imgW && 
           mouseY >= imgY && mouseY <= imgY+imgH)
-        {
-          background(bckgrnd);
-          gameMode = GameMode.Playing;
-          p1.StartGame();
+        {         
+          gameMode = GameMode.Playing;         
         }  
-      break;
-    
+      break; 
     case Playing:
-
+      m.show();
+      p1.draw();
       if(mousePressed == true){
-         p1.mouseDragged(); //<>//
-         m.show();
-         if(m.hasCollided(p1.xpos, p1.ypos, p1.size, p1.size))
+         p1.drawWhileDragging(); //<>//
+         if(m.hasCollided(p1.getCurrentPosition()))
          {
-            p1.resetPosition();
+           //p1.resetPosition();
+           //p1.draw();
+         }
+         if(m.hasWon(p1.xpos, p1.ypos))
+         {
+           gameOver = true;           
+         } else {
+         gameOver = false;
          }
       }
-      if(p1.isGameOver()) {
+      if(gameOver == true) {
         gameMode = GameMode.GameOver; 
       }
       break;
-    
     case GameOver:
       showWinScreen();
       break;
   }
 }
 
-void showWinScreen() {
-  PImage winner;  
+void showWinScreen() {  
+  //Clean up the screen
   clear();
   background(bckgrnd);
-  winner = loadImage("winnerpixel.png");
+  
+  //Display images
   image(winner,0,200,800,500);
   image(reload,14,10,95,48);
   image(exit,0,70,128,67);
+  
+  //Buttons
   if(mousePressed == true && mouseX <= 100 && mouseY <= 50)       
       {
           background(bckgrnd);
           gameMode = GameMode.Playing;
-          p1.xpos = 35;
-          p1.ypos = 35;
-          p1.gameOver = false;
-          m.createCourse1();
-          m.show();
-          p1.StartGame();
+          p1.resetPosition();
+          p1.draw();                 
+          m.show();          
       } else if(mousePressed == true && mouseX <= 128 && mouseY >= 70 && mouseY <= 140)
       {
         exit();
       }
-}
-
-void checkForCollisions(PImage img, int x, int y)
-{
-  color c1 = color(0);
-  loadPixels();
-  m.maze.loadPixels();
-  img.loadPixels();
-  for(int i = 0; i < img.pixels.length; i++)
-  {
-    for(int j = 0; j < m.maze.pixels.length; j++) {
-      if(m.maze.pixels[j] == img.pixels[i])
-      {
-        collision = true;
-      }  
-    }
-  }  
-  
-  /*
-  loadPixels();
-  m.maze.loadPixels();
-  img.loadPixels();
-  for (x = 0; x < img.width; x++) {  
-  for (y = 0; y < img.height; y++) { 
-    int loc = x + y * img.width;
-    float r = red(img.pixels[loc]);
-    float g = green(img.pixels[loc]);
-    float b = blue(img.pixels[loc]);
-    if (color(r,g,b) == c1) {
-     return true;
-    }
-   }
-  }
-  */
-    collision = false;
 }

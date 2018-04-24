@@ -1,15 +1,18 @@
 class Maze 
 {
-  
+  //P-objects
   PGraphics maze;
   PFont font;
+  
+  //Variables
   int mazewidth = 800;
+  int targetX = 25;
+  int targetY = 700;
   
   public Maze() {
     maze = createGraphics(800, mazewidth);
     font = loadFont("HandMeDownS-BRK--48.vlw");
-    createCourse1();
-    
+    createCourse1();    
     loadPixels();
   }
 
@@ -53,8 +56,11 @@ class Maze
     maze.fill(255,0,0);
     maze.stroke(255,0,0);
     maze.rect(25,700,75,75); //win area
-    //maze.fill(0,0,255);
-    //maze.rect(25,25,75,75); //start area
+    /*
+    maze.stroke(0,0,255);
+    maze.fill(0,0,255);
+    maze.rect(25,25,75,75); //start area
+    */
     
     //Messages
     maze.fill(255,0,0);
@@ -71,28 +77,27 @@ class Maze
   void show() {
     image(maze, 0, 0); 
   }
-  /*
-  void experiment() {
-     maze.loadPixels();
-     print(maze.pixels[0]);
-     
-  }
- */
  
+   boolean hasWon(int xpos, int ypos)
+   {
+     if(xpos >= targetX && xpos < 100 && ypos >= targetY && ypos < 775)
+     {
+       return true;       
+     }
+     return false;     
+   }
+   
    private boolean hasPixelOn(int x, int y) {
-     // als zwart (of niet wit) dan return true
-     // anders return false
-     if(pixels[x + y * mazewidth] == color(0))
+     //pixels[x + y * mazewidth]
+     color c = pixels[x + y * mazewidth];
+     if(alpha(c) != 0)
      {
        return true;
      }
-     
-     //pixels[x + y * mazewidth].gray
      return false;
    }
  
   boolean hasCollided(int x, int y, int w, int h) {
-    
     for(int i = x; i < x + w; i++) {
       for(int j = y; j < y + h; j++) {
         if( hasPixelOn(i, j) ) {
@@ -103,4 +108,9 @@ class Maze
     
     return false;  
   }
+  
+  boolean hasCollided(CollideRectangle pos) {
+    return hasCollided(pos.X, pos.Y, pos.Width, pos.Height);
+  }
+  
 }
