@@ -1,7 +1,7 @@
 class Player
 {
   //Variables
-  int size = 50;
+  int size = 45;
   int xpos = 35;
   int ypos = 35;
   

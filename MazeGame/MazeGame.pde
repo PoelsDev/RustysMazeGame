@@ -42,6 +42,8 @@ void setup()
 
 void draw()
 {
+  clear();
+  background(200);
   background(bckgrnd);
   
   switch(gameMode) {
@@ -57,12 +59,13 @@ void draw()
       m.show();
       p1.draw();
       if(mousePressed == true){
-         p1.drawWhileDragging(); //<>//
+         p1.drawWhileDragging();
          if(m.hasCollided(p1.getCurrentPosition()))
          {
-           //p1.resetPosition();
-           //p1.draw();
+           p1.resetPosition();
+           p1.draw();
          }
+         
          if(m.hasWon(p1.xpos, p1.ypos))
          {
            gameOver = true;           

@@ -89,8 +89,8 @@ class Maze
    
    private boolean hasPixelOn(int x, int y) {
      //pixels[x + y * mazewidth]
-     color c = pixels[x + y * mazewidth];
-     if(alpha(c) != 0)
+     color c = maze.pixels[x + y * mazewidth]; //<>//
+     if(c != 0)
      {
        return true;
      }
@@ -98,7 +98,8 @@ class Maze
    }
  
   boolean hasCollided(int x, int y, int w, int h) {
-    for(int i = x; i < x + w; i++) {
+    println(x + " " + y + " " + w + " " + h);
+    for(int i = x; i < x + w; i++) { //<>//
       for(int j = y; j < y + h; j++) {
         if( hasPixelOn(i, j) ) {
           return true;
