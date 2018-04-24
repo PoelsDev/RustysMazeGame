@@ -2,6 +2,7 @@ class Maze
 {
   //P-objects
   PGraphics maze;
+  PGraphics areas;
   PFont font;
   
   //Variables
@@ -11,6 +12,7 @@ class Maze
   
   public Maze() {
     maze = createGraphics(800, mazewidth);
+    areas = createGraphics(800, mazewidth);
     font = loadFont("HandMeDownS-BRK--48.vlw");
     createCourse1();    
     loadPixels();
@@ -52,10 +54,6 @@ class Maze
     maze.rect(100,510,100,20);
     maze.rect(-10,600,100,20);
     
-    //Special Areas
-    maze.fill(255,0,0);
-    maze.stroke(255,0,0);
-    maze.rect(25,700,75,75); //win area
     /*
     maze.stroke(0,0,255);
     maze.fill(0,0,255);
@@ -72,10 +70,17 @@ class Maze
     maze.text("Winner Winner Chicken Dinner",200,180);
     maze.fill(124,252,0);    
     maze.endDraw();
+    
+    areas.beginDraw();
+    areas.fill(255,0,0);
+    areas.stroke(255,0,0);
+    areas.rect(25,700,75,75); //win area
+    areas.endDraw();
   }
   
   void show() {
-    image(maze, 0, 0); 
+    image(maze, 0, 0);
+    image(areas,0,0);
   }
  
    boolean hasWon(int xpos, int ypos)
@@ -89,11 +94,15 @@ class Maze
    
    private boolean hasPixelOn(int x, int y) {
      //pixels[x + y * mazewidth]
-     color c = maze.pixels[x + y * mazewidth]; //<>//
-     if(c != 0)
+     if(x > 0 && y > 0)
      {
-       return true;
-     }
+       color c = maze.pixels[x + y * mazewidth];
+       if(c != 0)
+       {
+         return true;
+       }
+     }      //<>//
+     
      return false;
    }
  

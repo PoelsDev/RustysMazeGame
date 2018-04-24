@@ -23,7 +23,6 @@ void setup()
 {
   //Settings
   size(800,800);
-  frameRate(60);
     
   //Background
   bckgrnd = loadImage("background0.png");
