@@ -12,7 +12,7 @@ class Player
   //Summon player
   Player() {
     //Load image
-    player = loadImage("idleboi.png");
+    player = loadImage("image3721.png");
   }      
   
   //Draw player

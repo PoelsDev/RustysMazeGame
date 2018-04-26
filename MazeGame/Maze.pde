@@ -37,7 +37,7 @@ class Maze
     maze.ellipse(530,225,50,50);
     maze.ellipse(740,200,50,50);
     maze.ellipse(656,300,50,50);
-    maze.triangle(500,275,550,350,500,400);
+    maze.triangle(500,250,550,325,500,375);
     maze.triangle(650,350,600,400,650,450);
     maze.triangle(525,550,590,420,640,475);
     maze.rect(285,500,200,50);
