@@ -93,7 +93,7 @@ void showWinScreen() {
   image(winner,0,200,800,500);
   image(reload,14,10,95,48);
   image(exit,0,70,128,67);
-  image(next,14,142,98,50);
+  //image(next,14,142,98,50);
   
   //Buttons
   if(mousePressed == true && mouseX <= 100 && mouseY <= 50)       
@@ -106,8 +106,8 @@ void showWinScreen() {
       } else if(mousePressed == true && mouseX <= 128 && mouseY >= 70 && mouseY <= 120)
       {
         exit();
-      } else if(mousePressed == true && mouseX <= 98 && mouseY >= 142 && mouseY <= 200)
-      {
-        println("next");
-      }
+      } //else if(mousePressed == true && mouseX <= 98 && mouseY >= 142 && mouseY <= 200)
+      //{
+        //println("next");
+      //}
 }
