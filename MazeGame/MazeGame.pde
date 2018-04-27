@@ -36,8 +36,17 @@ void setup()
   start = loadImage("start.png");  
   next = loadImage("nextbutton.png");
   
-   //Make Objects
-   m = new Maze();   
+   //Make Objects   
+   MyMazeData mmd = new MyMazeData();      
+   /*
+   mazeData = new MazeData();
+   mazeData.setImage("blabla.png");
+   mazeData.setStartPos(10, 10);
+   mazeData.setTargetPos(100, 75);
+   // TODO 
+   */
+   
+   m = new Maze(mmd);   
    p1 = new Player();
 }
 
