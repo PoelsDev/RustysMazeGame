@@ -6,7 +6,7 @@ class Maze
   PImage targetImage;
   
   //Variables
-  int mazewidth = 800;
+  final int mazewidth = 800;
   int targetX;
   int targetY;
   int targetWidth;
@@ -59,9 +59,11 @@ class Maze
      if(x > 0 && y > 0)
      {
        color c = maze.pixels[x + y * mazewidth];
+       //println(hex(c));
        if(c != 0)
        {
-         return true;
+         
+         return true;         
        }
      }     
      

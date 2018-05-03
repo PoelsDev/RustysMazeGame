@@ -103,15 +103,15 @@ class MyMazeData2 extends MazeData
   public MyMazeData2()
   {    
     super();
-    //collisionMaze.loadImage();
-    startX = 35;
+    collisionMaze = loadImage("Level2.png");
+    startX = 15;
     startY = 35;
-    targetX = 25;
+    targetX = 700;
     targetY = 700;
     targetWidth = 75;
     targetHeight = 75;
     maze.beginDraw();    
-    //maze.image();
+    maze.image(collisionMaze,0,0);
     maze.endDraw();    
   }
 }

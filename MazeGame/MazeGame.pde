@@ -1,7 +1,8 @@
 //Objects
-GameMode gameMode = GameMode.StartScreen;
+GameMode gameMode = GameMode.GameOver;
 Player p1;
 Maze m;
+Maze m2;
 
 //Constants
 final int imgX = 300;
@@ -37,7 +38,8 @@ void setup()
   next = loadImage("nextbutton.png");
   
    //Make Objects   
-   MyMazeData mmd = new MyMazeData();      
+   MyMazeData mmd = new MyMazeData();
+   MyMazeData2 mmd2 = new MyMazeData2();
    /*
    mazeData = new MazeData();
    mazeData.setImage("blabla.png");
@@ -47,6 +49,7 @@ void setup()
    */
    
    m = new Maze(mmd);   
+   m2 = new Maze(mmd2);
    p1 = new Player();
 }
 
@@ -62,35 +65,43 @@ void draw()
       if (mousePressed == true && mouseX >= imgX && mouseX <= imgX+imgW && 
           mouseY >= imgY && mouseY <= imgY+imgH)
         {         
-          gameMode = GameMode.Playing;         
+          gameMode = GameMode.PlayingLevel1;         
         }  
       break; 
-    case Playing:
-      m.show();
-      p1.draw();
-      if(mousePressed == true){
-         p1.drawWhileDragging();
-         if(m.hasCollided(p1.getCurrentPosition()))
-         {
-           p1.resetPosition();
-           p1.draw();
-         }
-         
-         if(m.hasWon(p1.xpos, p1.ypos))
-         {
-           gameOver = true;           
-         } else {
-         gameOver = false;
-         }
-      }
-      if(gameOver == true) {
-        gameMode = GameMode.GameOver; 
-      }
+    case PlayingLevel1:
+      playLevel(m);
       break;
     case GameOver:
       showWinScreen();
       break;
+    case PlayingLevel2:
+      playLevel(m2);      
+      break;
   }
+}
+
+void playLevel(Maze m) {
+    m.show();
+    p1.draw();
+    if(mousePressed == true){
+       p1.drawWhileDragging();
+       if(m.hasCollided(p1.getCurrentPosition()))
+       {
+         println("COLLISION!");
+         p1.resetPosition();
+         p1.draw();
+       }
+       
+       if(m.hasWon(p1.xpos, p1.ypos))
+       {
+         gameOver = true;           
+       } else {
+       gameOver = false;
+       }
+    }
+    if(gameOver == true) {
+      gameMode = GameMode.GameOver; 
+    } 
 }
 
 void showWinScreen() {  
@@ -102,21 +113,22 @@ void showWinScreen() {
   image(winner,0,200,800,500);
   image(reload,14,10,95,48);
   image(exit,0,70,128,67);
-  //image(next,14,142,98,50);
+  image(next,14,142,98,50);
   
   //Buttons
   if(mousePressed == true && mouseX <= 100 && mouseY <= 50)       
       {
           background(bckgrnd);
-          gameMode = GameMode.Playing;
+          gameMode = GameMode.PlayingLevel1;
           p1.resetPosition();
           p1.draw();                 
           m.show();          
       } else if(mousePressed == true && mouseX <= 128 && mouseY >= 70 && mouseY <= 120)
       {
         exit();
-      } //else if(mousePressed == true && mouseX <= 98 && mouseY >= 142 && mouseY <= 200)
-      //{
-        //println("next");
-      //}
+      } else if(mousePressed == true && mouseX <= 98 && mouseY >= 142 && mouseY <= 200)
+      {
+        println("next");
+        gameMode = GameMode.PlayingLevel2;
+      }
 }

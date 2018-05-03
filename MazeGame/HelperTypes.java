@@ -1,7 +1,8 @@
 //Switch GameMode
 enum GameMode {
   StartScreen,
-  Playing,
+  PlayingLevel1,
+  PlayingLevel2,
   GameOver
 };
 
