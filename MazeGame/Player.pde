@@ -2,8 +2,8 @@ class Player
 {
   //Variables
   final int size = 40;
-  final int xpos = 25;
-  final int ypos = 25;
+  int xpos = 25;
+  int ypos = 25;
   
   //P-objects
   PFont font; 

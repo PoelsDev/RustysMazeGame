@@ -1,5 +1,5 @@
 //Objects
-GameMode gameMode = GameMode.GameOver;
+GameMode gameMode = GameMode.StartScreen;
 Player p1;
 Maze m;
 Maze m2;
@@ -18,6 +18,8 @@ PImage start;
 PImage reload;
 PImage exit;
 PImage bckgrnd;
+PImage bckgrnd2;
+PImage startScreenbckgrnd;
 PImage winner;
 PImage next;
 
@@ -28,7 +30,11 @@ void setup()
     
   //Background
   bckgrnd = loadImage("background0.png");
-  background(bckgrnd);
+  bckgrnd2 = loadImage("background3-720.png");
+  startScreenbckgrnd = loadImage("background1-720.png");
+  startScreenbckgrnd.resize(800,800);
+  bckgrnd2.resize(800,800);
+  background(startScreenbckgrnd);
   
   //Loading Images
   reload = loadImage("reset.png");
@@ -56,8 +62,7 @@ void setup()
 void draw()
 {
   clear();
-  background(200);
-  background(bckgrnd);
+  background(startScreenbckgrnd);
   
   switch(gameMode) {
     case StartScreen:
@@ -69,13 +74,15 @@ void draw()
         }  
       break; 
     case PlayingLevel1:
-      playLevel(m);
+      background(bckgrnd);
+      playLevel(m2);
       break;
     case GameOver:
       showWinScreen();
       break;
     case PlayingLevel2:
-      playLevel(m2);      
+      background(bckgrnd2);
+      playLevel(m);      
       break;
   }
 }
@@ -129,6 +136,9 @@ void showWinScreen() {
       } else if(mousePressed == true && mouseX <= 98 && mouseY >= 142 && mouseY <= 200)
       {
         println("next");
+        background(bckgrnd2);
+        p1.resetPosition();
+        p1.draw(); 
         gameMode = GameMode.PlayingLevel2;
       }
 }
