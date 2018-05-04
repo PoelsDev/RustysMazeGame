@@ -103,11 +103,37 @@ class MyMazeData2 extends MazeData
   public MyMazeData2()
   {    
     super();
-    collisionMaze = loadImage("imageedit.png");
+    collisionMaze = loadImage("difficultmaze2.png");
+    collisionMaze.resize(800,800);
     startX = 15;
     startY = 35;
-    targetX = 700;
-    targetY = 700;
+    targetX = 710;
+    targetY = 710;
+    targetWidth = 75;
+    targetHeight = 75;
+    maze.beginDraw();    
+    maze.image(collisionMaze,0,0);
+    maze.fill(255,0,0);
+    maze.textFont(font);
+    maze.textSize(20);
+    maze.text("DOORWAY =",5,570);
+    maze.fill(0);
+    maze.textSize(25);
+    maze.text("NEXT LEVEL",5,590);
+    maze.endDraw();    
+  }
+}
+
+class MyMazeData3 extends MazeData
+{
+  public MyMazeData3()
+  {
+    collisionMaze = loadImage("imageedit.png");
+    collisionMaze.resize(800,800);
+    startX = 15;
+    startY = 35;
+    targetX = 710;
+    targetY = 710;
     targetWidth = 75;
     targetHeight = 75;
     maze.beginDraw();    

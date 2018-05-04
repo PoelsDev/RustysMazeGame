@@ -3,6 +3,7 @@ enum GameMode {
   StartScreen,
   PlayingLevel1,
   PlayingLevel2,
+  PlayingLevel3,
   GameOver
 };
 
