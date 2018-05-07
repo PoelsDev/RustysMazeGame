@@ -53,8 +53,7 @@ void setup()
    mazeData = new MazeData();
    mazeData.setImage("blabla.png");
    mazeData.setStartPos(10, 10);
-   mazeData.setTargetPos(100, 75);
-   // TODO 
+   mazeData.setTargetPos(100, 75);   
    */
    
    m = new Maze(mmd);   
@@ -150,11 +149,11 @@ void showWinScreen() {
         p1.draw(); 
         gameMode = GameMode.PlayingLevel2;
         */
-        nextLevel();
+        handleNextLevel();
       }
 }
 
-void nextLevel()
+void handleNextLevel()
 {
   if(currentLevel == 1)
   {
